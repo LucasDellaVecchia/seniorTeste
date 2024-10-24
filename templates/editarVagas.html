@@ -1,0 +1,42 @@
+{% extends "shared/cabecalho.html" %}
+{% block content %}
+    <form action="{% url 'editarVagas' pk=pk %}" method="POST">
+        {% csrf_token %}
+        <div class="row cadastro">
+            {% for field in form.visible_fields %}
+                <div class="form-group vagas">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <span>{{ field }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-group vagas">
+            <button type="submit" class="botao">Salvar</button>
+            <a href="{% url 'index' %}" type="button" class="botao link-botao">Voltar</a>
+            <a href="{% url 'deletarVagas' pk=pk %}" type="button" class="botao link-botao">Remover Vaga</a>
+            <a href="{% url 'graficoCandidatosVaga' pk=pk %}" type="button" class="botao link-botao">Visualizar Gráfico</a>
+        </div>
+    </form>
+    <table class="table table-stripped index-table">
+        <thead>
+            <tr>
+                <th scope="col">Candidato</th>
+                <th scope="col">Pretensão Salarial</th>
+                <th scope="col">Experiência</th>
+                <th scope="col">Escolaridade</th>
+                <th scope="col">Pontuação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registro in candidatos %}
+            <tr>
+                <th scope="row">{{ registro.usuario }}</th>
+                <td>{{ registro.pretensao }}</td>
+                <td>{{ registro.experiencia }}</td>
+                <td>{{ registro.escolaridade }}</td>
+                <td>{{ registro.avaliacao }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

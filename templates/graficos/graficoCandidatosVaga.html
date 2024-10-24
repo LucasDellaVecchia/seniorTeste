@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Candidatos - {{ vaga.nome }}</title>
+    <link rel="stylesheet" href="{% static 'styles/css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="corpo corpo-grafico">
+    <a href="{% url 'index' %}" type="button" class="botao link-botao">Voltar</a>
+    <div class="grafico">
+        <h1>Total de Candidatos por Mês - Vaga: {{ vaga.nome }}</h1>
+
+        <canvas id="candidatosVagaChart"></canvas>
+    </div>
+    <script>
+
+        var labels = {{ labels|safe }};
+        var data = {{ data|safe }}; 
+
+        // Criar o gráfico
+        var ctx = document.getElementById('candidatosVagaChart').getContext('2d');
+        var candidatosVagaChart = new Chart(ctx, {
+            type: 'bar', 
+            data: {
+                labels: labels, 
+                datasets: [{
+                    label: 'Total de Candidatos por Mês',
+                    data: data,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

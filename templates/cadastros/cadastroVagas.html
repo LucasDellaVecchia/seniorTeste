@@ -1,0 +1,18 @@
+{% extends "shared/cabecalho.html" %}
+{% block content %}
+    <form action="{% url 'cadastroVagas' %}" method="POST">
+        {% csrf_token %}
+        <div class="row cadastro">
+            {% for field in form.visible_fields %}
+                <div class="form-group vagas">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <span>{{ field }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-group vagas">
+            <button type="submit" class="botao">Cadastrar</button>
+            <a href="{% url 'index' %}" type="button" class="botao link-botao">Voltar</a>
+        </div>
+    </form>
+{% endblock %}

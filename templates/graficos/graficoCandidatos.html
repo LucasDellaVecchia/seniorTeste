@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos de Candidatos</title>
+    <link rel="stylesheet" href="{% static 'styles/css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="corpo corpo-grafico">   
+    <a href="{% url 'index' %}" type="button" class="botao link-botao">Voltar</a>
+    <div class="grafico">
+        <h1>Total de Candidatos Cadastrados por Mês (Geral)</h1>
+    
+        <canvas id="candidatosChart"></canvas>
+    </div>
+    <script>
+
+        const mesesCandidatos = {{ meses_candidatos|safe }};
+        const totalCandidatosGeral = {{ total_candidatos_geral|safe }};
+
+        // Criar o gráfico
+        const ctxCandidatos = document.getElementById('candidatosChart').getContext('2d');
+        const candidatosChart = new Chart(ctxCandidatos, {
+            type: 'bar',
+            data: {
+                labels: mesesCandidatos,
+                datasets: [{
+                    label: 'Total de Candidatos',
+                    data: totalCandidatosGeral,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

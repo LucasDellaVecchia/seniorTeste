@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Vagas</title>
+    <link rel="stylesheet" href="{% static 'styles/css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="corpo corpo-grafico">
+    <a href="{% url 'index' %}" type="button" class="botao link-botao">Voltar</a>
+    <div class="grafico">
+        <h2>Total de Vagas Criadas por Mês</h2>
+        
+        <canvas id="vagasChart"></canvas>
+    </div>
+    <script>
+
+        const meses = {{ meses|safe }};  
+        const totalVagas = {{ total_vagas|safe }};  
+
+        // Criar o gráfico
+        const ctx = document.getElementById('vagasChart').getContext('2d');
+        const vagasChart = new Chart(ctx, {
+            type: 'bar', 
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Total de Vagas',
+                    data: totalVagas,  
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

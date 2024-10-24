@@ -1,0 +1,19 @@
+{% extends "shared/cabecalho.html" %}
+{% block content %}
+    <table class="table table-stripped">
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Faixa Salarial</th>
+            <th scope="col">Escolaridade</th>
+        </tr>
+        {% for field in form %}
+        
+        <tr>               
+            <th scope="row">{{ field.nome }}</th>
+            <td>{{ field.faixa }}</td>
+            <td>{{ field.escolaridade }}</td>                
+        </tr>
+        
+        {% endfor %}
+    </table>
+{% endblock %}
